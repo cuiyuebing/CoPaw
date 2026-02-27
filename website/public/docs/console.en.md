@@ -383,5 +383,4 @@ Select rows → click **Delete** in the toolbar → confirm.
 - [Channels](./channels) — Per-channel setup and credentials
 - [Skills](./skills) — Built-in skills and custom skills
 - [Heartbeat](./heartbeat) — Heartbeat configuration
-- [Local Models](./local-models) — Run models with llama.cpp or MLX
 - [CLI](./cli) — Command-line reference
