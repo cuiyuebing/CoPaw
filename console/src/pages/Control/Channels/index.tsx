@@ -14,7 +14,7 @@ import styles from "./index.module.less";
 type FilterType = "all" | "builtin" | "custom";
 
 function ChannelsPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { channels, orderedKeys, isBuiltin, loading, fetchChannels } =
     useChannels();
   const [filter, setFilter] = useState<FilterType>("all");
@@ -97,7 +97,9 @@ function ChannelsPage() {
     }
   };
 
-  const activeLabel = activeKey ? getChannelLabel(activeKey) : "";
+  const activeLabel = activeKey
+    ? getChannelLabel(activeKey, t, i18n.resolvedLanguage || i18n.language)
+    : "";
 
   const FILTER_TABS: { key: FilterType; label: string }[] = [
     { key: "all", label: t("channels.filterAll") },

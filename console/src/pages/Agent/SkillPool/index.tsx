@@ -24,6 +24,7 @@ import type {
   WorkspaceSkillSummary,
 } from "../../../api/types";
 import { parseErrorDetail } from "../../../utils/error";
+import { getAgentDisplayName } from "../../../utils/agentDisplayName";
 import {
   getSkillDisplaySource,
   getPoolBuiltinStatusLabel,
@@ -214,9 +215,16 @@ function SkillPoolPage() {
                 if (!c.workspace_id || !c.suggested_name) {
                   return null;
                 }
-                const workspaceLabel =
-                  workspaces.find((w) => w.agent_id === c.workspace_id)
-                    ?.agent_name || c.workspace_id;
+                const w = workspaces.find(
+                  (ws) => ws.agent_id === c.workspace_id,
+                );
+                const workspaceLabel = getAgentDisplayName(
+                  {
+                    id: c.workspace_id,
+                    name: w?.agent_name ?? "",
+                  },
+                  t,
+                );
                 return {
                   key: c.workspace_id,
                   label: workspaceLabel,
