@@ -214,8 +214,7 @@ In Console, go to **Settings → Models** to configure. See the
 After configuration, choose the target provider and model under **Default LLM**
 at the top of the Models page and **Save** — that becomes the global default.
 
-To use a different model per agent, switch the agent with the selector at the
-top of Console, then pick a model in the top-right of the **Chat** page for that
+To use a different model per agent, switch the agent with the selector at the top-left of Console, then pick a model in the top-right of the **Chat** page for that
 agent.
 
 You can also use `copaw models` for setup, downloads, and switching. See
