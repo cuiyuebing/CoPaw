@@ -6,9 +6,9 @@ imports, or files you add yourself.
 Two ways to manage skills:
 
 - **Console:** Use the [Console](./console) under **Workspace → Skills**.
-- **Working directory:** Edit skill files directly under `$COPAW_WORKING_DIR`
-  (default `~/.qwenpaw`), including `$COPAW_WORKING_DIR/skill_pool/` and each
-  workspace's `$COPAW_WORKING_DIR/workspaces/{agent_id}/skills/`.
+- **Working directory:** Edit skill files directly under `$QWENPAW_WORKING_DIR`
+  (default `~/.qwenpaw`), including `$QWENPAW_WORKING_DIR/skill_pool/` and each
+  workspace's `$QWENPAW_WORKING_DIR/workspaces/{agent_id}/skills/`.
 
 > If you're new to channels, heartbeat, or cron, read [Introduction](./intro) first.
 
@@ -21,14 +21,14 @@ copies. The structure and creation paths are described below.
 
 QwenPaw skills are organized in two layers:
 
-- **Skill Pool:** Shared local repository at `$COPAW_WORKING_DIR/skill_pool/`
+- **Skill Pool:** Shared local repository at `$QWENPAW_WORKING_DIR/skill_pool/`
   (default `~/.qwenpaw/skill_pool/`).
 - **Workspace Skills:** The local runtime copy at
-  `$COPAW_WORKING_DIR/workspaces/{agent_id}/skills/`
+  `$QWENPAW_WORKING_DIR/workspaces/{agent_id}/skills/`
   (default `~/.qwenpaw/workspaces/{agent_id}/skills/`).
 
 ```
-$COPAW_WORKING_DIR/                      # Default ~/.qwenpaw
+$QWENPAW_WORKING_DIR/                      # Default ~/.qwenpaw
   skill_pool/                # Shared pool
     skill.json               # Pool manifest
     pdf/
@@ -118,7 +118,7 @@ Adding skills to the pool:
    pool.
 
 6. **Manual filesystem changes**.
-   You can place folders directly under `$COPAW_WORKING_DIR/skill_pool/`, but this is not
+   You can place folders directly under `$QWENPAW_WORKING_DIR/skill_pool/`, but this is not
    recommended. Direct pool edits can be lost or overwritten more easily,
    especially for customized skills. Be careful and treat this as an advanced
    workflow.
@@ -126,7 +126,7 @@ Adding skills to the pool:
 ### Workspace Skills
 
 Every workspace runs from its own local copies under
-`$COPAW_WORKING_DIR/workspaces/{agent_id}/skills/`. Those copies are what the agent
+`$QWENPAW_WORKING_DIR/workspaces/{agent_id}/skills/`. Those copies are what the agent
 actually loads at runtime.
 
 ---
@@ -228,7 +228,7 @@ The workspace skill page supports importing from the following URL sources:
 ### 5. Create manually in the workspace
 
 You can also create a workspace skill directly by writing files under
-`$COPAW_WORKING_DIR/workspaces/{agent_id}/skills/`, including using QwenPaw itself to help
+`$QWENPAW_WORKING_DIR/workspaces/{agent_id}/skills/`, including using QwenPaw itself to help
 generate those files.
 
 This is flexible, but the write location and resulting skill quality are not
@@ -236,7 +236,7 @@ always fully controlled. You should supervise the creation process carefully,
 verify that files land in the right workspace path, and review the skill
 content before relying on it.
 
-Create a directory under `$COPAW_WORKING_DIR/workspaces/{agent_id}/skills/`, add a
+Create a directory under `$QWENPAW_WORKING_DIR/workspaces/{agent_id}/skills/`, add a
 `SKILL.md`, and make sure it includes YAML front matter with `name` and
 `description`. If the skill depends on external binaries or environment
 variables, declare them in `metadata.requires`; QwenPaw exposes them as
@@ -312,7 +312,7 @@ injected as environment variables. Keys not declared in `requires.env` are
 skipped (but still available via the full JSON variable). If a required key
 is missing from the config, a warning is logged.
 
-The full config is always available as `COPAW_SKILL_CONFIG_<SKILL_NAME>`
+The full config is always available as `QWENPAW_SKILL_CONFIG_<SKILL_NAME>`
 (JSON string), regardless of `requires.env`.
 
 Existing host environment variables are never overwritten.
@@ -347,7 +347,7 @@ The skill can read:
 - `BASE_URL` comes from config and matches `requires.env`.
 - `timeout` is not in `requires.env`, so it is only available via the full
   JSON below.
-- `COPAW_SKILL_CONFIG_MY_SKILL` always contains the full JSON config.
+- `QWENPAW_SKILL_CONFIG_MY_SKILL` always contains the full JSON config.
 
 Python example:
 
@@ -357,7 +357,7 @@ import os
 
 api_key = os.environ.get("MY_API_KEY", "")
 base_url = os.environ.get("BASE_URL", "")
-cfg = json.loads(os.environ.get("COPAW_SKILL_CONFIG_MY_SKILL", "{}"))
+cfg = json.loads(os.environ.get("QWENPAW_SKILL_CONFIG_MY_SKILL", "{}"))
 timeout = cfg.get("timeout", 30)
 ```
 

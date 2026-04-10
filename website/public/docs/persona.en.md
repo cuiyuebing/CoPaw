@@ -6,10 +6,10 @@ QwenPaw defines an agent's "persona" through a set of Markdown files that are lo
 
 ## Persona Files
 
-Agent persona files are Markdown documents stored in the agent's workspace directory. The workspace location is determined by the `COPAW_WORKING_DIR` environment variable (defaults to `~/.qwenpaw`), with the full path being:
+Agent persona files are Markdown documents stored in the agent's workspace directory. The workspace location is determined by the `QWENPAW_WORKING_DIR` environment variable (defaults to `~/.qwenpaw`), with the full path being:
 
 ```
-$COPAW_WORKING_DIR/workspaces/{agent_id}/
+$QWENPAW_WORKING_DIR/workspaces/{agent_id}/
 ```
 
 **Persona files are flexible and extensible.** The files shown below represent the default configuration, but you can freely add new Markdown files or remove existing ones. Any Markdown file enabled in the Console's **Agent → Workspace** page will be loaded into the system prompt.
@@ -226,4 +226,4 @@ You can select "QA Agent" in the agent switcher at the top-right of the Console,
 
 - **Can modify**: You can manage it like any other agent—edit persona files in "Agent → Workspace" or adjust skills and tools in "Agent → Skills"
 - **Can delete**: Delete it in "Settings → Agent Management" (doesn't affect other agents; will be recreated on next `qwenpaw init`)
-- **Workspace location**: `$COPAW_WORKING_DIR/workspaces/QwenPaw_QA_Agent_0.1beta1/` (defaults to `~/.qwenpaw/workspaces/QwenPaw_QA_Agent_0.1beta1/`)
+- **Workspace location**: `$QWENPAW_WORKING_DIR/workspaces/QwenPaw_QA_Agent_0.1beta1/` (defaults to `~/.qwenpaw/workspaces/QwenPaw_QA_Agent_0.1beta1/`)

@@ -10,7 +10,7 @@
 
 ## 心跳是怎么工作的？
 
-1. 在当前智能体的 workspace 里有一个**心跳查询文件**（默认文件名为 **HEARTBEAT.md**，可用环境变量 `COPAW_HEARTBEAT_FILE` 改名）。里面写的是**每次心跳要问 QwenPaw 的内容**（一段或几段话都行，QwenPaw 会当成一条用户消息）。
+1. 在当前智能体的 workspace 里有一个**心跳查询文件**（默认文件名为 **HEARTBEAT.md**，可用环境变量 `QWENPAW_HEARTBEAT_FILE` 改名）。里面写的是**每次心跳要问 QwenPaw 的内容**（一段或几段话都行，QwenPaw 会当成一条用户消息）。
 2. 当配置里 **`enabled` 为 true** 时，系统按你配置的 **every**（间隔字符串或五段 Cron）执行一次：读取该文件 → 用这段内容去问 QwenPaw → QwenPaw 回复。
 3. **发不发到频道** 由配置里的 **target** 决定：
    - **main**：只跑 QwenPaw，不把回复发到任何频道（适合只做「自检」、结果自己看日志或别处）。
@@ -22,10 +22,10 @@
 
 ## 第一步：写 HEARTBEAT.md
 
-**路径（多智能体，常见情况）**：`<COPAW_WORKING_DIR>/workspaces/<agent_id>/HEARTBEAT.md`。
-`<COPAW_WORKING_DIR>` 默认是 `~/.qwenpaw`，也可用环境变量 `COPAW_WORKING_DIR` 覆盖；`<agent_id>` 与当前智能体一致（例如 `default`）。
+**路径（多智能体，常见情况）**：`<QWENPAW_WORKING_DIR>/workspaces/<agent_id>/HEARTBEAT.md`。
+`<QWENPAW_WORKING_DIR>` 默认是 `~/.qwenpaw`，也可用环境变量 `QWENPAW_WORKING_DIR` 覆盖；`<agent_id>` 与当前智能体一致（例如 `default`）。
 
-文件名默认 `HEARTBEAT.md`，可通过 **`COPAW_HEARTBEAT_FILE`** 改成别的名字；路径始终是「该智能体 workspace 根目录 + 该文件名」。
+文件名默认 `HEARTBEAT.md`，可通过 **`QWENPAW_HEARTBEAT_FILE`** 改成别的名字；路径始终是「该智能体 workspace 根目录 + 该文件名」。
 
 内容就是「每次要问 QwenPaw 什么」，纯文本或 Markdown 都行，QwenPaw 会整体当作一条用户消息。
 

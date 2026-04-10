@@ -412,7 +412,7 @@ Console 页面左上角的 **当前智能体** 用于切换当前操作对象；
 
 在聊天中直接问 QwenPaw「最近用了多少 token？」或「帮我看看 token 消耗」，Agent 会调用 `get_token_usage` 工具并返回统计结果。
 
-> 数据存储在 `~/.qwenpaw/token_usage.json`，可通过 `COPAW_TOKEN_USAGE_FILE` 环境变量自定义文件名。详见 [配置 — 环境变量](./config#环境变量)。
+> 数据存储在 `~/.qwenpaw/token_usage.json`，可通过 `QWENPAW_TOKEN_USAGE_FILE` 环境变量自定义文件名。详见 [配置 — 环境变量](./config#环境变量)。
 
 ---
 

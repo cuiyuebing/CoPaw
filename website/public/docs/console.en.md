@@ -443,7 +443,7 @@ Ask e.g. "How many tokens have I used?" or "Show token usage." The agent calls
 `get_token_usage` and returns stats.
 
 > Data is stored in `~/.qwenpaw/token_usage.json`. Override the filename with
-> `COPAW_TOKEN_USAGE_FILE`. See [Config — Environment variables](./config#environment-variables).
+> `QWENPAW_TOKEN_USAGE_FILE`. See [Config — Environment variables](./config#environment-variables).
 
 ---
 

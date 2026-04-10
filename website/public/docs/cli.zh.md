@@ -582,8 +582,8 @@ qwenpaw --host 0.0.0.0 --port 9090 cron list
 
 | 变量                | 说明             |
 | ------------------- | ---------------- |
-| `COPAW_WORKING_DIR` | 覆盖工作目录路径 |
-| `COPAW_CONFIG_FILE` | 覆盖配置文件路径 |
+| `QWENPAW_WORKING_DIR` | 覆盖工作目录路径 |
+| `QWENPAW_CONFIG_FILE` | 覆盖配置文件路径 |
 
 详见 [配置与工作目录](./config) 和 [多智能体](./multi-agent)。
 

@@ -6,10 +6,10 @@ QwenPaw 通过一组 Markdown 文件定义智能体的"人设"，这些文件会
 
 ## 人设文件
 
-QwenPaw 的人设由 Markdown 文件定义，默认位于智能体工作区目录下。工作区目录的位置取决于 `COPAW_WORKING_DIR` 环境变量（默认为 `~/.qwenpaw`），完整路径为：
+QwenPaw 的人设由 Markdown 文件定义，默认位于智能体工作区目录下。工作区目录的位置取决于 `QWENPAW_WORKING_DIR` 环境变量（默认为 `~/.qwenpaw`），完整路径为：
 
 ```
-$COPAW_WORKING_DIR/workspaces/{agent_id}/
+$QWENPAW_WORKING_DIR/workspaces/{agent_id}/
 ```
 
 **人设文件是灵活可扩展的**。下面展示的是默认配置，你可以自由地添加新的 Markdown 文件或删除现有文件。只要在控制台的「Agent → Workspace」页面中启用它们，任何 Markdown 文件都能加载到系统提示词中。
@@ -226,4 +226,4 @@ QwenPaw 在首次运行 `qwenpaw init` 时会自动创建一个名为 **"QA Agen
 
 - **可以修改**：您可以像管理其他智能体一样，在"智能体 → 工作区"中编辑它的人设文件，或在"智能体 → 技能"中调整技能和工具
 - **可以删除**：在"设置 → 智能体管理"页面删除（删除后不影响其他智能体，下次 `qwenpaw init` 会重新创建）
-- **工作区位置**：`$COPAW_WORKING_DIR/workspaces/QwenPaw_QA_Agent_0.1beta1/`（默认为 `~/.qwenpaw/workspaces/QwenPaw_QA_Agent_0.1beta1/`）
+- **工作区位置**：`$QWENPAW_WORKING_DIR/workspaces/QwenPaw_QA_Agent_0.1beta1/`（默认为 `~/.qwenpaw/workspaces/QwenPaw_QA_Agent_0.1beta1/`）

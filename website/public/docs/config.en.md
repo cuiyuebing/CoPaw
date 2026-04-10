@@ -18,7 +18,7 @@ From **v0.1.0**, QwenPaw supports **multi-agent**. Configuration is split into t
 The default working directory is `~/.qwenpaw`. After running `qwenpaw init`, the complete structure looks like:
 
 ```
-$COPAW_WORKING_DIR/                      # Default ~/.qwenpaw
+$QWENPAW_WORKING_DIR/                      # Default ~/.qwenpaw
 ├── config.json                          # Global config
 ├── workspaces/
 │   ├── default/                         # Default agent workspace
@@ -41,12 +41,12 @@ $COPAW_WORKING_DIR/                      # Default ~/.qwenpaw
     ├── skill.json                       # Pool metadata
     └── ...
 
-$COPAW_SECRET_DIR/                       # Default ~/.qwenpaw.secret
+$QWENPAW_SECRET_DIR/                       # Default ~/.qwenpaw.secret
 ├── providers.json                       # Model provider config and API keys
 └── envs.json                            # Environment variables
 ```
 
-> **Path explanation:** `$COPAW_WORKING_DIR` and `$COPAW_SECRET_DIR` are environment variables, with default values of `~/.qwenpaw` and `~/.qwenpaw.secret` respectively. They can be customized via environment variables, see "Environment Variables" section below.
+> **Path explanation:** `$QWENPAW_WORKING_DIR` and `$QWENPAW_SECRET_DIR` are environment variables, with default values of `~/.qwenpaw` and `~/.qwenpaw.secret` respectively. They can be customized via environment variables, see "Environment Variables" section below.
 
 ### Directory Explanation
 
@@ -89,33 +89,33 @@ You can customize paths and behavior via environment variables:
 
 | Variable                 | Default             | Description                                                                                                 |
 | ------------------------ | ------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `COPAW_WORKING_DIR`      | `~/.qwenpaw`        | Working directory root path                                                                                 |
-| `COPAW_SECRET_DIR`       | `~/.qwenpaw.secret` | Sensitive data directory (stores `providers.json` and `envs.json`). Docker default is `/app/working.secret` |
-| `COPAW_CONFIG_FILE`      | `config.json`       | Config file name (relative to `COPAW_WORKING_DIR`)                                                          |
-| `COPAW_HEARTBEAT_FILE`   | `HEARTBEAT.md`      | Heartbeat file name (relative to agent workspace)                                                           |
-| `COPAW_JOBS_FILE`        | `jobs.json`         | Cron jobs file name (relative to agent workspace)                                                           |
-| `COPAW_CHATS_FILE`       | `chats.json`        | Conversation history file name (relative to agent workspace)                                                |
-| `COPAW_TOKEN_USAGE_FILE` | `token_usage.json`  | Token usage record file name (relative to agent workspace)                                                  |
+| `QWENPAW_WORKING_DIR`      | `~/.qwenpaw`        | Working directory root path                                                                                 |
+| `QWENPAW_SECRET_DIR`       | `~/.qwenpaw.secret` | Sensitive data directory (stores `providers.json` and `envs.json`). Docker default is `/app/working.secret` |
+| `QWENPAW_CONFIG_FILE`      | `config.json`       | Config file name (relative to `QWENPAW_WORKING_DIR`)                                                          |
+| `QWENPAW_HEARTBEAT_FILE`   | `HEARTBEAT.md`      | Heartbeat file name (relative to agent workspace)                                                           |
+| `QWENPAW_JOBS_FILE`        | `jobs.json`         | Cron jobs file name (relative to agent workspace)                                                           |
+| `QWENPAW_CHATS_FILE`       | `chats.json`        | Conversation history file name (relative to agent workspace)                                                |
+| `QWENPAW_TOKEN_USAGE_FILE` | `token_usage.json`  | Token usage record file name (relative to agent workspace)                                                  |
 
 **Other configuration:**
 
 | Variable                           | Default         | Description                                                                 |
 | ---------------------------------- | --------------- | --------------------------------------------------------------------------- |
-| `COPAW_LOG_LEVEL`                  | `info`          | Log level (`debug` / `info` / `warning` / `error` / `critical`)             |
-| `COPAW_MEMORY_COMPACT_THRESHOLD`   | `100000`        | Character threshold to trigger memory compaction                            |
-| `COPAW_MEMORY_COMPACT_KEEP_RECENT` | `3`             | Number of recent messages to keep after compaction                          |
-| `COPAW_MEMORY_COMPACT_RATIO`       | `0.7`           | Threshold ratio for triggering compaction (relative to context window size) |
-| `COPAW_CONSOLE_STATIC_DIR`         | _(auto-detect)_ | Console frontend static files path                                          |
+| `QWENPAW_LOG_LEVEL`                  | `info`          | Log level (`debug` / `info` / `warning` / `error` / `critical`)             |
+| `QWENPAW_MEMORY_COMPACT_THRESHOLD`   | `100000`        | Character threshold to trigger memory compaction                            |
+| `QWENPAW_MEMORY_COMPACT_KEEP_RECENT` | `3`             | Number of recent messages to keep after compaction                          |
+| `QWENPAW_MEMORY_COMPACT_RATIO`       | `0.7`           | Threshold ratio for triggering compaction (relative to context window size) |
+| `QWENPAW_CONSOLE_STATIC_DIR`         | _(auto-detect)_ | Console frontend static files path                                          |
 
 **Security & Authentication:**
 
 | Variable                   | Default | Description                                        |
 | -------------------------- | ------- | -------------------------------------------------- |
-| `COPAW_AUTH_ENABLED`       | `false` | Whether to enable Web console login authentication |
-| `COPAW_AUTH_USERNAME`      | -       | Admin username for auto-registration (optional)    |
-| `COPAW_AUTH_PASSWORD`      | -       | Admin password for auto-registration (optional)    |
-| `COPAW_TOOL_GUARD_ENABLED` | `true`  | Whether to enable tool guard                       |
-| `COPAW_SKILL_SCAN_MODE`    | `warn`  | Skill scanning mode (`block` / `warn` / `off`)     |
+| `QWENPAW_AUTH_ENABLED`       | `false` | Whether to enable Web console login authentication |
+| `QWENPAW_AUTH_USERNAME`      | -       | Admin username for auto-registration (optional)    |
+| `QWENPAW_AUTH_PASSWORD`      | -       | Admin password for auto-registration (optional)    |
+| `QWENPAW_TOOL_GUARD_ENABLED` | `true`  | Whether to enable tool guard                       |
+| `QWENPAW_SKILL_SCAN_MODE`    | `warn`  | Skill scanning mode (`block` / `warn` / `off`)     |
 
 **Memory & Retrieval:**
 
@@ -127,7 +127,7 @@ You can customize paths and behavior via environment variables:
 Example — use a different working dir for this shell:
 
 ```bash
-export COPAW_WORKING_DIR=/home/me/my_qwenpaw
+export QWENPAW_WORKING_DIR=/home/me/my_qwenpaw
 qwenpaw app
 ```
 
@@ -194,14 +194,14 @@ Stores globally shared configuration:
 | `name`          | string | Yes      | Agent display name                                                          |
 | `description`   | string | No       | Agent description (used for multi-agent collaboration)                      |
 | `enabled`       | bool   | Yes      | Whether to enable this agent                                                |
-| `workspace_dir` | string | No       | Workspace path (optional, defaults to `$COPAW_WORKING_DIR/workspaces/{id}`) |
+| `workspace_dir` | string | No       | Workspace path (optional, defaults to `$QWENPAW_WORKING_DIR/workspaces/{id}`) |
 
 > **Backward compatibility:** The global config.json still supports `channels`, `mcp`, `tools`, `security` and other fields for backward compatibility with older versions. In multi-agent mode, these configurations should be set in each agent's `agent.json`.
 >
 > **Configuration priority:** The agent's `agent.json` takes precedence over the global `config.json`. When the same field is configured in both places, the system uses the value from `agent.json`. For multi-agent mode, it's recommended to put all configurations in each agent's `agent.json`.
 
-> **Model provider configuration** is stored in `$COPAW_SECRET_DIR/providers.json` (default `~/.qwenpaw.secret/providers.json`).
-> **Environment variables** are stored in `$COPAW_SECRET_DIR/envs.json` (default `~/.qwenpaw.secret/envs.json`).
+> **Model provider configuration** is stored in `$QWENPAW_SECRET_DIR/providers.json` (default `~/.qwenpaw.secret/providers.json`).
+> **Environment variables** are stored in `$QWENPAW_SECRET_DIR/envs.json` (default `~/.qwenpaw.secret/envs.json`).
 
 ### Agent config (agent.json)
 
@@ -645,7 +645,7 @@ Recommended to configure in `agent.json` under `running.embedding_config`, which
 
 ## Summary
 
-- Everything lives under **`~/.qwenpaw`** by default; override with `COPAW_WORKING_DIR` (and related env vars) if needed.
+- Everything lives under **`~/.qwenpaw`** by default; override with `QWENPAW_WORKING_DIR` (and related env vars) if needed.
 - From **v0.1.0**, configuration is split into:
   - **Global config** (`~/.qwenpaw/config.json`) — providers, environment variables, agent list
   - **Agent config** (`~/.qwenpaw/workspaces/{agent_id}/agent.json`) — per-agent settings
