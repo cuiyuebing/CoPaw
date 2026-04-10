@@ -27,10 +27,13 @@ _TOOL_FILE_PARAMS: dict[str, tuple[str, ...]] = {
     "write_text_file": ("file_path", "path"),
 }
 
+_SECRET_DIR_CURRENT_NAME = ".qwenpaw.secret"
+_SECRET_DIR_LEGACY_NAME = ".copaw.secret"
+
 _COMPAT_SECRET_DIRS: tuple[str, ...] = (
     str(SECRET_DIR) + "/",
-    str(Path.home() / ".copaw.secret") + "/",
-    str(Path.home() / ".qwenpaw.secret") + "/",
+    str(Path.home() / _SECRET_DIR_LEGACY_NAME) + "/",
+    str(Path.home() / _SECRET_DIR_CURRENT_NAME) + "/",
 )
 
 
