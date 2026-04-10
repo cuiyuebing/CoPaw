@@ -154,7 +154,7 @@ my-plugin/
   "author": "Your Name",
   "entry_point": "plugin.py",
   "dependencies": [],
-  "min_qwenpaw_version": "0.1.0",
+  "min_version": "0.1.0",
   "meta": {}
 }
 ```
@@ -218,7 +218,7 @@ cd my-llm-provider
   "author": "Your Name",
   "entry_point": "plugin.py",
   "dependencies": ["httpx>=0.24.0"],
-  "min_qwenpaw_version": "0.1.0",
+  "min_version": "0.1.0",
   "meta": {
     "api_key_url": "https://example.com/get-api-key",
     "api_key_hint": "Get your API key from example.com"
@@ -232,12 +232,13 @@ cd my-llm-provider
 # -*- coding: utf-8 -*-
 """My LLM Provider Implementation."""
 
-from qwenpaw.providers.provider import ModelInfo, Provider
+from qwenpaw.providers.openai_provider import OpenAIProvider
+from qwenpaw.providers.provider import ModelInfo
 from typing import List
 
 
-class MyLLMProvider(Provider):
-    """My custom LLM provider."""
+class MyLLMProvider(OpenAIProvider):
+    """My custom LLM provider (OpenAI-compatible)."""
 
     def __init__(self, **kwargs):
         """Initialize provider."""
@@ -248,10 +249,17 @@ class MyLLMProvider(Provider):
         """Get default models."""
         return [
             ModelInfo(
-                id="my-model",
-                name="My Model",
+                id="my-model-v1",
+                name="My Model V1",
                 supports_multimodal=False,
                 supports_image=False,
+                supports_video=False,
+            ),
+            ModelInfo(
+                id="my-model-v2",
+                name="My Model V2",
+                supports_multimodal=True,
+                supports_image=True,
                 supports_video=False,
             ),
         ]
@@ -283,17 +291,13 @@ class MyLLMProviderPlugin:
         """
         logger.info("Registering My LLM Provider...")
 
-        # Load provider module
+        # Load provider module from same directory
         plugin_dir = os.path.dirname(os.path.abspath(__file__))
         provider_path = os.path.join(plugin_dir, "provider.py")
 
         spec = importlib.util.spec_from_file_location(
-            "my_provider",
-            provider_path,
+            "my_provider", provider_path
         )
-        if spec is None or spec.loader is None:
-            raise ImportError(f"Cannot load provider from {provider_path}")
-
         provider_module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(provider_module)
 
@@ -322,7 +326,7 @@ plugin = MyLLMProviderPlugin()
 qwenpaw plugin install my-llm-provider
 
 # Start QwenPaw
-qwenpaw app
+qwenpaw start
 
 # Configure API Key in Web UI
 # Then you can use the new provider
@@ -350,7 +354,7 @@ cd monitoring-hook
   "author": "Your Name",
   "entry_point": "plugin.py",
   "dependencies": [],
-  "min_qwenpaw_version": "0.1.0"
+  "min_version": "0.1.0"
 }
 ```
 
@@ -412,7 +416,7 @@ plugin = MonitoringHookPlugin()
 
 ```bash
 qwenpaw plugin install monitoring-hook
-qwenpaw app
+qwenpaw start
 ```
 
 ### Example 3: Add Custom Command
@@ -437,7 +441,7 @@ cd status-command
   "author": "Your Name",
   "entry_point": "plugin.py",
   "dependencies": [],
-  "min_qwenpaw_version": "0.1.0"
+  "min_version": "0.1.0"
 }
 ```
 
@@ -797,7 +801,7 @@ A: Plugins access core functionality through `PluginApi`, including:
 
 - Provider registration
 - Hook registration
-- Runtime helpers (`provider_manager`, etc.)
+- Runtime helpers (provider_manager, etc.)
 
 ### Q: Can plugins modify QwenPaw's core behavior?
 
@@ -805,4 +809,4 @@ A: Yes, through monkey patching or hook mechanisms. But use with caution to avoi
 
 ### Q: Will plugins conflict with each other?
 
-A: If multiple plugins register the same `provider_id` or `command_name`, the later one will override the earlier one. Use unique IDs.
+A: If multiple plugins register the same provider_id or command_name, the later one will override the earlier one. Use unique IDs.
