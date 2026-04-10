@@ -1,10 +1,10 @@
 # Security
 
-CoPaw includes built-in security features to protect your agent from malicious inputs and unsafe skills. These are configured in the Console under **Settings → Security**, or via `config.json`.
+QwenPaw includes built-in security features to protect your agent from malicious inputs and unsafe skills. These are configured in the Console under **Settings → Security**, or via `config.json`.
 
 ## Overview
 
-CoPaw's security system consists of three core security layers:
+QwenPaw's security system consists of three core security layers:
 
 ```
 Security Architecture:
@@ -230,7 +230,7 @@ File Guard operates as the "File Path Guardian" within the Tool Guard engine, wo
 4. **Recursive directory protection** — Paths ending with `/` are treated as directories; all files and subdirectories within are recursively blocked
 5. **Blocking mechanism** — When a match is found, the tool call is blocked with a HIGH-severity finding
 
-**Default protection**: The `{WORKING_DIR}.secret/` directory (which stores API keys, authentication credentials, and provider configurations) is included in the sensitive-file list by default. By default, `WORKING_DIR` is `~/.copaw/`, making the full path `~/.copaw.secret/`.
+**Default protection**: The `{WORKING_DIR}.secret/` directory (which stores API keys, authentication credentials, and provider configurations) is included in the sensitive-file list by default. By default, `WORKING_DIR` is `~/.qwenpaw/`, making the full path `~/.qwenpaw.secret/`.
 
 ### Configuration
 
@@ -241,7 +241,7 @@ In `config.json`:
   "security": {
     "file_guard": {
       "enabled": true,
-      "sensitive_files": ["~/.ssh/", "/etc/passwd", "~/.copaw.secret/"]
+      "sensitive_files": ["~/.ssh/", "/etc/passwd", "~/.qwenpaw.secret/"]
     }
   }
 }
@@ -388,11 +388,11 @@ In the Console under **Settings → Security → Skill Scanner** tab, you can:
 
 For scenarios requiring deep customization, the scanner supports programmatic configuration:
 
-The scanner uses YAML rule files in `src/copaw/security/skill_scanner/rules/signatures/`. You can customize the scan policy via a YAML policy file:
+The scanner uses YAML rule files in `src/qwenpaw/security/skill_scanner/rules/signatures/`. You can customize the scan policy via a YAML policy file:
 
 ```python
-from copaw.security.skill_scanner import SkillScanner
-from copaw.security.skill_scanner.scan_policy import ScanPolicy
+from qwenpaw.security.skill_scanner import SkillScanner
+from qwenpaw.security.skill_scanner.scan_policy import ScanPolicy
 
 policy = ScanPolicy.from_yaml("my_org_policy.yaml")
 scanner = SkillScanner(policy=policy)
@@ -508,7 +508,7 @@ Here's a complete `config.json` with all security features configured:
       "enabled": true,
       "sensitive_files": [
         "~/.ssh/",
-        "~/.copaw.secret/",
+        "~/.qwenpaw.secret/",
         "/etc/passwd",
         "/etc/shadow",
         ".env",
@@ -534,13 +534,13 @@ Here's a complete `config.json` with all security features configured:
 
 ## Web Authentication
 
-CoPaw supports optional web login authentication to protect the Console from unauthorized access. Authentication is **disabled by default** and must be explicitly enabled via the `COPAW_AUTH_ENABLED` environment variable.
+QwenPaw supports optional web login authentication to protect the Console from unauthorized access. Authentication is **disabled by default** and must be explicitly enabled via the `COPAW_AUTH_ENABLED` environment variable.
 
 ![login](https://img.alicdn.com/imgextra/i3/O1CN01SP7Ppd289g5e9kKO6_!!6000000007890-2-tps-3822-2064.png)
 
 ### How it works
 
-1. **Enable authentication** — Set `COPAW_AUTH_ENABLED=true` and start CoPaw
+1. **Enable authentication** — Set `COPAW_AUTH_ENABLED=true` and start QwenPaw
 2. **Registration flow**:
    - On first visit, the Console shows a **registration page**
    - Create the single admin account (username + password)
@@ -551,9 +551,9 @@ CoPaw supports optional web login authentication to protect the Console from una
    - Token is stored in browser localStorage and automatically attached to all API requests
 4. **Auto-registration** (optional):
    - Set `COPAW_AUTH_USERNAME` and `COPAW_AUTH_PASSWORD` environment variables
-   - CoPaw automatically creates the admin account on startup, skipping web registration
+   - QwenPaw automatically creates the admin account on startup, skipping web registration
    - Useful for Docker, Kubernetes, server management panels, and other automated deployments
-5. **Localhost bypass** — Requests from localhost (`127.0.0.1` / `::1`) automatically skip authentication; CLI commands (`copaw app`, `copaw chat`, etc.) work without a token
+5. **Localhost bypass** — Requests from localhost (`127.0.0.1` / `::1`) automatically skip authentication; CLI commands (`qwenpaw app`, `qwenpaw chat`, etc.) work without a token
 
 **Security features**:
 
@@ -589,13 +589,13 @@ Set environment variables before starting:
 ```bash
 # Basic enable (web registration)
 export COPAW_AUTH_ENABLED=true
-copaw app
+qwenpaw app
 
 # Or: Auto-registration mode
 export COPAW_AUTH_ENABLED=true
 export COPAW_AUTH_USERNAME=admin
 export COPAW_AUTH_PASSWORD=mypassword
-copaw app
+qwenpaw app
 ```
 
 To make it permanent, add the `export` lines to your `~/.bashrc`, `~/.zshrc`, or equivalent.
@@ -607,7 +607,7 @@ set COPAW_AUTH_ENABLED=true
 rem Optional: auto-registration
 rem set COPAW_AUTH_USERNAME=admin
 rem set COPAW_AUTH_PASSWORD=mypassword
-copaw app
+qwenpaw app
 ```
 
 **Windows (PowerShell):**
@@ -617,7 +617,7 @@ $env:COPAW_AUTH_ENABLED = "true"
 # Optional: auto-registration
 # $env:COPAW_AUTH_USERNAME = "admin"
 # $env:COPAW_AUTH_PASSWORD = "mypassword"
-copaw app
+qwenpaw app
 ```
 
 #### Docker
@@ -629,9 +629,9 @@ docker run -e COPAW_AUTH_ENABLED=true \
   -e COPAW_AUTH_USERNAME=admin \
   -e COPAW_AUTH_PASSWORD=mypassword \
   -p 127.0.0.1:8088:8088 \
-  -v copaw-data:/app/working \
-  -v copaw-secrets:/app/working.secret \
-  agentscope/copaw:latest
+  -v qwenpaw-data:/app/working \
+  -v qwenpaw-secrets:/app/working.secret \
+  agentscope/qwenpaw:latest
 ```
 
 > **Tip**: To skip auto-registration, remove `COPAW_AUTH_USERNAME` and `COPAW_AUTH_PASSWORD` and register via browser on first visit.
@@ -640,8 +640,8 @@ docker run -e COPAW_AUTH_ENABLED=true \
 
 ```yaml
 services:
-  copaw:
-    image: agentscope/copaw:latest
+  qwenpaw:
+    image: agentscope/qwenpaw:latest
     ports:
       - "127.0.0.1:8088:8088"
     environment:
@@ -649,8 +649,8 @@ services:
       - COPAW_AUTH_USERNAME=admin
       - COPAW_AUTH_PASSWORD=mypassword
     volumes:
-      - copaw-data:/app/working
-      - copaw-secrets:/app/working.secret
+      - qwenpaw-data:/app/working
+      - qwenpaw-secrets:/app/working.secret
 ```
 
 #### Environment file (.env)
@@ -663,19 +663,19 @@ COPAW_AUTH_USERNAME=admin
 COPAW_AUTH_PASSWORD=mypassword
 ```
 
-Then pass it to Docker with `--env-file .env`, or source it in your shell before running `copaw app`.
+Then pass it to Docker with `--env-file .env`, or source it in your shell before running `qwenpaw app`.
 
 ### Disable authentication
 
-Remove or unset the environment variable and restart CoPaw:
+Remove or unset the environment variable and restart QwenPaw:
 
 ```bash
 # Linux / macOS
 unset COPAW_AUTH_ENABLED
-copaw app
+qwenpaw app
 
 # Docker — simply remove the -e flag. The example below includes volumes for persistence.
-docker run -p 127.0.0.1:8088:8088 -v copaw-data:/app/working -v copaw-secrets:/app/working.secret agentscope/copaw:latest
+docker run -p 127.0.0.1:8088:8088 -v qwenpaw-data:/app/working -v qwenpaw-secrets:/app/working.secret agentscope/qwenpaw:latest
 ```
 
 ### Password reset
@@ -683,7 +683,7 @@ docker run -p 127.0.0.1:8088:8088 -v copaw-data:/app/working -v copaw-secrets:/a
 If you forget your password, use the CLI to reset:
 
 ```bash
-copaw auth reset-password
+qwenpaw auth reset-password
 ```
 
 This command will:
@@ -695,7 +695,7 @@ This command will:
 **Docker deployments**:
 
 ```bash
-docker exec -it <container_name> copaw auth reset-password
+docker exec -it <container_name> qwenpaw auth reset-password
 ```
 
 **Alternative approach**:
@@ -704,9 +704,9 @@ To completely reset the authentication system:
 
 ```bash
 # Delete the auth file
-rm ~/.copaw.secret/auth.json  # or $WORKING_DIR.secret/auth.json
-# Restart CoPaw; re-register on next visit
-copaw app
+rm ~/.qwenpaw.secret/auth.json  # or $WORKING_DIR.secret/auth.json
+# Restart QwenPaw; re-register on next visit
+qwenpaw app
 ```
 
 ### Logout
